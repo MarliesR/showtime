@@ -7,13 +7,13 @@ class block_showtime extends block_base {
     public function specialization() {
         if (isset($this->config)) {
             if (empty($this->config->title)) {
-                $this->title = get_string('defaulttitle', 'block_simplehtml');            
+                $this->title = get_string('defaulttitle', 'block_showtime');            
             } else {
                 $this->title = $this->config->title;
             }
     
             if (empty($this->config->text)) {
-                $this->config->text = get_string('defaulttext', 'block_simplehtml');
+                $this->config->text = get_string('defaulttext', 'block_showtime');
             }    
         }
     }
