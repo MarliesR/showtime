@@ -18,7 +18,7 @@ class block_showtime_edit_form extends block_edit_form {
         $mform->addElement('text', 'config_title', get_string('blocktitle', 'block_simplehtml'));
         $mform->setDefault('config_title', 'default value');
         $mform->setType('config_title', PARAM_TEXT);
-        
+        //hi
     }
 }
 
