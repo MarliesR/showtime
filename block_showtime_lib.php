@@ -15,7 +15,7 @@ class block_showtime_manager{
         global $DB;
         
         $where = 'userid =:userid';
-        $params = $user->id;
+        $params = array('userid' => $user->id);
 
         $logs = block_showtime_utils::get_events_select($where, $params);
 
