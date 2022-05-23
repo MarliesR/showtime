@@ -29,12 +29,13 @@ class block_showtime extends block_base {
         $this->content         =  new stdClass;
         $this->content->text   = 'The content of our SimpleHTML block!';
         $this->content->footer = 'Footer here...';
-     
-        $showtime = new block_showtime_manager('00:10');
+        
+
+        $showtime = new block_showtime_manager('100');
         $showFullTime = $showtime->get_student_moodletime($USER,true);
         //$this->content->text .= html_writer::tag('p', get_string('show moodle full time'));
-        $this->content->text .= html_writer::tag('p', block_showtime_utils::format_showtime($dedicationtime));
-
+        $this->content->text .= html_writer::tag('p', block_showtime_utils::format_showtime($showFullTime));
+        //$this->content->text = $showFullTime;
         return $this->content; 
     }
 

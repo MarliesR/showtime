@@ -1,5 +1,11 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
+// Default session time limit in seconds.
+define('BLOCK_DEDICATION_DEFAULT_SESSION_LIMIT', 60 * 60);
+// Ignore sessions with a duration less than defined value in seconds.
+define('BLOCK_DEDICATION_IGNORE_SESSION_TIME', 59);
+// Default regeneration time in seconds.
+define('BLOCK_DEDICATION_DEFAULT_REGEN_TIME', 60 * 15);
 
 class block_showtime_manager{
 
@@ -40,6 +46,40 @@ class block_showtime_manager{
             }
 
             return $total;
+        } else {
+            // Return user sessions with details.
+            $rows = array();
+
+            if ($logs) {
+                $previouslog = array_shift($logs);
+                $previouslogtime = $previouslog->time;
+                $sessionstart = $previouslogtime;
+                $ips = array($previouslog->ip => true);
+
+                foreach ($logs as $log) {
+                    if (($log->time - $previouslogtime) > $this->limit) {
+                        $dedication = $previouslogtime - $sessionstart;
+
+                        // Ignore sessions with a really short duration.
+                        if ($dedication > BLOCK_DEDICATION_IGNORE_SESSION_TIME) {
+                            $rows[] = (object) array('start_date' => $sessionstart, 'dedicationtime' => $dedication, 'ips' => array_keys($ips));
+                            $ips = array();
+                        }
+                        $sessionstart = $log->time;
+                    }
+                    $previouslogtime = $log->time;
+                    $ips[$log->ip] = true;
+                }
+
+                $dedication = $previouslogtime - $sessionstart;
+
+                // Ignore sessions with a really short duration.
+                if ($dedication > BLOCK_DEDICATION_IGNORE_SESSION_TIME) {
+                    $rows[] = (object) array('start_date' => $sessionstart, 'dedicationtime' => $dedication, 'ips' => array_keys($ips));
+                }
+            }
+
+            return $rows;
         }
 
         
