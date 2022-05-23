@@ -19,6 +19,9 @@ class block_showtime extends block_base {
     }
 
     public function get_content() {
+        require_once('block_showtime_lib.php');
+        global $USER;
+
         if ($this->content !== null) {
           return $this->content;
         }
@@ -27,7 +30,12 @@ class block_showtime extends block_base {
         $this->content->text   = 'The content of our SimpleHTML block!';
         $this->content->footer = 'Footer here...';
      
-        return $this->content;
+        $showtime = new block_showtime_manager('00:10');
+        $showFullTime = $showtime->get_student_moodletime($USER,true);
+        $this->content->text .= html_writer::tag('p', get_string('show moodle full time'));
+        $this->content->text .= html_writer::tag('p', block_showtime_utils::format_showtime($dedicationtime));
+
+        return $this->content; 
     }
 
     public function instance_allow_multiple() {
