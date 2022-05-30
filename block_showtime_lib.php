@@ -19,8 +19,11 @@ class block_showtime_manager{
 
     public function get_student_moodletime($user, $simple = false){
         global $DB;
-        
-        $where = 'userid =:userid';
+
+        //Semesterstartdatum in Unix-Timestamp umwandeln: https://www.confirado.de/tools/timestamp-umrechner.html
+        $Semesterstart = '1645480800'; // = 22.02.2022 (Start des 4. Semesters)
+
+        $where = 'userid =:userid AND timecreated >= '. $Semesterstart;
         $params = array('userid' => $user->id);
 
         $logs = block_showtime_utils::get_events_select($where, $params);
