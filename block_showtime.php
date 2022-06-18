@@ -25,15 +25,17 @@ class block_showtime extends block_base {
         if ($this->content !== null) {
           return $this->content;
         }
-    
-        $Semesterstart = '1645480800';
+        //'1645480800'
 
+       $Semesterstart = $this->config->assesstimefinish;
+       //$Semesterstart = '1645480800';
+        
         $this->content         =  new stdClass;
         $this->content->text   = 'Time spent on Moodle since '. gmdate("d-m-Y", $Semesterstart) . ':';
         $this->content->footer = '';
 
         $showtime = new block_showtime_manager('5000');
-        $showFullTime = $showtime->get_student_moodletime($USER,true);
+        $showFullTime = $showtime->get_student_moodletime($USER,true,$Semesterstart);
         $this->content->text .= html_writer::tag('p', block_showtime_utils::format_showtime($showFullTime));
     
         return $this->content; 

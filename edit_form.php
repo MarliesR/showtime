@@ -10,7 +10,7 @@ class block_showtime_edit_form extends block_edit_form {
         // A sample string variable with a default value.
         $mform->setDefault('config_date', 'default value');
         $mform->setType('config_date', PARAM_RAW);    
-        $mform->addElement('date_selector', 'assesstimefinish', 'Semesterstart'); 
+        $mform->addElement('date_selector', 'config_assesstimefinish', 'Semesterstart'); 
         
         $this->add_action_buttons();
         //hi
