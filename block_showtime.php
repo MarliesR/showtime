@@ -28,6 +28,10 @@ class block_showtime extends block_base {
         //'1645480800'
 
        $Semesterstart = $this->config->assesstimefinish;
+
+       if($Semesterstart == NULL){
+        $Semesterstart = '1645480800';
+       }
        //$Semesterstart = '1645480800';
         
         $this->content         =  new stdClass;
