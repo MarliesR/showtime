@@ -12,7 +12,7 @@ class block_showtime extends block_base {
                 $this->title = $this->config->title;
             }
     
-            if (empty($this->config->text)) {
+            if (!empty($this->config->text)) {
                 $this->config->text = get_string('defaulttext', 'block_showtime');
             }    
         }
