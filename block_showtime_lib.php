@@ -17,7 +17,7 @@ class block_showtime_manager{
 
     }
 
-    public function get_student_moodletime($user, $simple = false, $Semesterstart){
+    public function get_student_moodletime($user, $Semesterstart,$simple = false ){
         global $DB;
 
         //Semesterstartdatum in Unix-Timestamp umwandeln: https://www.confirado.de/tools/timestamp-umrechner.html
